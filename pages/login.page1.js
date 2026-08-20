@@ -1,15 +1,14 @@
 class LoginPage {
     constructor(page) {
         this.page = page;
-        this.usernameInput = page.locator('#username');
+        this.usernameInput = page.locator('#user-name');
         this.passwordInput = page.locator('#password');
-        this.submitButton = page.locator('#submit');
-        // Sửa Selector tìm chính xác thẻ chứa thông báo lỗi trên trang Practice
-        this.errorMessage = page.locator('#error');
+        this.submitButton = page.locator('#login-button');
+        this.errorMessage = page.locator('[data-test="error"]');
     }
 
     async navigate() {
-        await this.page.goto('https://practicetestautomation.com/practice-test-login/', { waitUntil: 'domcontentloaded' });
+        await this.page.goto('https://www.saucedemo.com/', { waitUntil: 'domcontentloaded' });
     }
 
     async login(username, password) {
@@ -19,10 +18,9 @@ class LoginPage {
     }
 
     async getErrorMessage() {
-        // Chờ thẻ lỗi xuất hiện rồi mới lấy chữ
         await this.errorMessage.waitFor({ state: 'visible' });
         return await this.errorMessage.textContent();
     }
 }
 
-module.exports = { LoginPage };
+module.exports = LoginPage;
